@@ -45,3 +45,14 @@ extension View {
         }
     }
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    PhotoImageView(
+        url: URL(string: "https://images.pexels.com/photos/123/large.jpg"),
+        aspectRatio: .fit,
+        height: 200,
+        cornerRadius: 12,
+        backgroundColor: Color.gray.opacity(0.2)
+    )
+    .padding()
+}

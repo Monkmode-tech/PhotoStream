@@ -27,11 +27,7 @@ struct PhotoDetailView: View {
                 downloadComplete: downloadComplete,
                 errorMessage: errorMessage
             )
-            Button(action: exportToFiles) {
-                Label("Download Original", systemImage: "arrow.down.circle")
-            }
-            .disabled(isDownloading)
-            .buttonStyle(.borderedProminent)
+            DownloadButtonView(isDownloading: isDownloading, action: exportToFiles)
         }
         .padding()
         .background(Color("BackgroundColor").ignoresSafeArea())
@@ -91,25 +87,32 @@ struct PhotoDetailView: View {
     }
 }
 
-struct DownloadStatusView: View {
-    var isDownloading: Bool
-    var downloadProgress: Double
-    var downloadComplete: Bool
-    var errorMessage: String?
-    
-    var body: some View {
-        Group {
-            if isDownloading {
-                ProgressView(value: downloadProgress)
-                    .progressViewStyle(LinearProgressViewStyle())
-                Text("Downloading...")
-            } else if downloadComplete {
-                Text("Download complete!")
-                    .foregroundColor(Color("AppPrimaryColor"))
-            } else if let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-            }
+struct PhotoDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let samplePhoto = Photo(
+            id: 1,
+            width: 4000,
+            height: 3000,
+            url: "https://www.pexels.com/photo/123/",
+            photographer: "Jane Doe",
+            photographer_url: "https://www.pexels.com/@janedoe",
+            photographer_id: 123,
+            avg_color: "#CCCCCC",
+            src: PhotoSource(
+                original: "https://images.pexels.com/photos/123/original.jpg",
+                large2x: "https://images.pexels.com/photos/123/large2x.jpg",
+                large: "https://images.pexels.com/photos/123/large.jpg",
+                medium: "https://images.pexels.com/photos/123/medium.jpg",
+                small: "https://images.pexels.com/photos/123/small.jpg",
+                portrait: "https://images.pexels.com/photos/123/portrait.jpg",
+                landscape: "https://images.pexels.com/photos/123/landscape.jpg",
+                tiny: "https://images.pexels.com/photos/123/tiny.jpg"
+            ),
+            liked: false,
+            alt: "Sample Photo"
+        )
+        NavigationView {
+            PhotoDetailView(photo: samplePhoto)
         }
     }
 }

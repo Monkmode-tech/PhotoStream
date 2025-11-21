@@ -54,3 +54,13 @@ struct CachedAsyncImage: View {
         isLoading = false
     }
 }
+
+#Preview {
+    CachedAsyncImage(
+        url: URL(string: "https://images.pexels.com/photos/123/large.jpg"),
+        content: { image in AnyView(image.resizable().scaledToFit()) },
+        placeholder: { AnyView(ProgressView()) }
+    )
+    .frame(width: 200, height: 200)
+    .padding()
+}
